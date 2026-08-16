@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tallyql"
+version = "1.0.0"
+description = "Stream-query and aggregate JSONL without a database: filter, group, count, summarize"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Raofal MSODEH"}]
+readme = "README.md"
+keywords = ["jsonl", "query", "aggregate", "log-analysis", "cli"]
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "License :: OSI Approved :: MIT License",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "build"]
+
+[project.scripts]
+tallyql = "tallyql.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.mypy]
+strict = true
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["tests.*"]
+check_untyped_defs = false
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM"]
+ignore = ["UP007", "SIM102"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "PLC", "B018"]
